@@ -1,0 +1,38 @@
+#include <bits/stdc++.h>
+vector<vector<long long int>> printPascal(int n) 
+{
+  // Write your code here.vector
+  vector<vector<long long int>> sol;
+  for(int i=0;i<n;i++)
+  {
+    vector<long long int> v(i+1);
+    v[0]=v[v.size()-1]=1;
+    for(int j=1;j<v.size()-1;j++)
+    {
+      v[j]=sol[i-1][j-1]+sol[i-1][j];
+    }
+    sol.push_back(v);
+  }
+  return sol;
+}
+
+
+// vector<vector<long long int>> printPascal(int n) 
+// {
+//   // Write your code here.vector
+//   vector<vector<long long int>> sol;
+//   for(int i=0;i<n;i++)
+//   {
+//     vector<long long int> v(i+1);
+//     v[0]=1;
+//     long long ans=1;
+//     for(int j=1;j<v.size();j++)
+//     {
+//       ans*=i+1-j;
+//       ans/=j;
+//       v[j]=ans;
+//     }
+//     sol.push_back(v);
+//   }
+//   return sol;
+// }
