@@ -7,5 +7,6 @@
             maxi=max(maxi,sum);
             if(sum<0)   sum=0;
         }
+        // if(maxi<0)  maxi=0;  //if empty subarray is to be considered
         return maxi;
     }
