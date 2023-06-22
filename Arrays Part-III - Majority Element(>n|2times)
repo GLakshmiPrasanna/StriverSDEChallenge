@@ -9,16 +9,19 @@ public:
             if(nums[i]==element)    cnt++;
             else    cnt--;
         }
-        if(cnt!=0)
-        {
-            cnt=0;
-            for(int i=0;i<nums.size();i++)
-            {
-                if(nums[i]==element)    cnt++;
-                if(cnt>(nums.size()/2)) return element;
-            }
-        }
-        return -1;
+        return element;    //Since, it's given that the element always exists
+
+        //If element may or may not exist , then
+        // if(cnt!=0)
+        // {
+        //     cnt=0;
+        //     for(int i=0;i<nums.size();i++)
+        //     {
+        //         if(nums[i]==element)    cnt++;
+        //         if(cnt>(nums.size()/2)) return element;
+        //     }
+        // }
+        // return -1;
     }
 };
 
@@ -27,8 +30,7 @@ public:
 class Solution {
 public:
     int majorityElement(vector<int>& nums) {
-        unordered_map<int,int> hsh;
-        // map<int,int> hsh
+        map<int,int> hsh;      //unordered_map can also be used
         for(int i=0;i<nums.size();i++)
         {
             hsh[nums[i]]++;
