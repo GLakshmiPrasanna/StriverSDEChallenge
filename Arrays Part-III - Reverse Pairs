@@ -1,0 +1,73 @@
+class Solution {
+public:
+    void count(int low,int mid,int high,vector<int> &nums,int &cnt)
+    {
+        int right=mid+1;
+        for(int i=low;i<=mid;i++)
+        {
+            while(right<=high && nums[i]>2*1LL*nums[right])   right++;
+            cnt+=(right-(mid+1));
+        }
+    }
+    void merge(int low,int mid,int high,vector<int> &arr)
+    {
+        int left=low;
+        int right=mid+1;
+        vector<int> temp;
+        while(left<=mid && right<=high)
+        {
+            if(arr[left]>arr[right])
+            {
+                temp.push_back(arr[right]);
+                right++;
+            }
+            else{
+                temp.push_back(arr[left]);
+                left++;
+            }
+        }
+        while(left<=mid)
+        {
+            temp.push_back(arr[left++]);
+        }
+        while(right<=high)
+        {
+            temp.push_back(arr[right++]);
+        }
+        for(int i=low;i<=high;i++)  arr[i]=temp[i-low];
+    }
+    void mergeSort(int low,int high,vector<int> &nums,int &cnt)
+    {
+        if(low<high)
+        {
+            int mid=(low+high)/2;
+            mergeSort(low,mid,nums,cnt);
+            mergeSort(mid+1,high,nums,cnt);
+            count(low,mid,high,nums,cnt);
+            merge(low,mid,high,nums);
+        }
+    }
+    int reversePairs(vector<int>& nums) {
+        int n=nums.size();
+        int cnt=0;
+        mergeSort(0,n-1,nums,cnt);
+        return cnt;
+    }
+};
+
+//TLE
+// class Solution {
+// public:
+//     int reversePairs(vector<int>& nums) {
+//         int n=nums.size();
+//         int cnt=0;
+//         for(int i=0;i<n;i++)
+//         {
+//             for(int j=i+1;j<n;j++)
+//             {
+//                 if(nums[i]*1LL>2*1LL*nums[j])   cnt++;
+//             }
+//         }
+//         return cnt;
+//     }
+// };
