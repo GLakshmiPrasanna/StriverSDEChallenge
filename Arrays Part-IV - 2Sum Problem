@@ -53,3 +53,54 @@ public:
 //         return {0};
 //     }
 // };
+
+
+                                                            //////////        PAIR SUM       //////////////
+
+#include <bits/stdc++.h>
+vector<vector<int>> pairSum(vector<int> &nums, int target){
+   int n=nums.size();
+   vector<vector<int>> v;
+    map<int,int> m;
+   for(int i=0;i<n;i++)
+   {
+      if(m.find(target-nums[i])!=m.end()) 
+      {
+         int cnt=m[target-nums[i]];
+         while(cnt--)
+         {
+            if(nums[i]<=target-nums[i]) v.push_back({nums[i],target-nums[i]});
+            else  v.push_back({target-nums[i],nums[i]});
+         }
+      }
+      m[nums[i]]++;
+   }
+   sort(v.begin(),v.end());
+   return v;
+}
+
+
+
+// vector<vector<int>> pairSum(vector<int> &nums, int target){
+//    // Write your code here.
+//    int n=nums.size();
+//    vector<vector<int>> v;
+//    int i,j;
+//    for(i=0;i<n;i++)
+//    {
+//       for(j=i+1;j<n;j++)
+//       {
+//             if(nums[i]+nums[j]==target)
+//             {
+//                if(nums[i]<=nums[j]) v.push_back({nums[i],nums[j]});
+//                else  v.push_back({nums[j],nums[i]});
+//             }
+//       }
+//    }
+//    sort(v.begin(),v.end());
+//    return v;
+// }
+
+
+
+
