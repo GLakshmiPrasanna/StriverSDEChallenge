@@ -1,0 +1,45 @@
+/*
+struct Job 
+{ 
+    int id;	 // Job Id 
+    int dead; // Deadline of job 
+    int profit; // Profit if job is over before or on deadline 
+};
+*/
+
+class Solution 
+{
+    public:
+    //Function to find the maximum profit and the number of jobs done.
+    bool static compare(Job j1,Job j2)
+    {
+        return (j1.profit>j2.profit);
+    }
+    vector<int> JobScheduling(Job arr[], int n) 
+    { 
+        // your code here
+        int maxi=0;
+        for(int i=0;i<n;i++)    maxi=max(maxi,arr[i].dead);
+        
+        sort(arr,arr+n,compare);
+        
+        int noOfJobs=0,maxProfit=0;
+        
+        vector<int> fill(maxi+1,-1);
+        
+        for(int i=0;i<n;i++)
+        {
+            for(int j=arr[i].dead;j>=1;j--)
+            {
+                if(fill[j]==-1)
+                {
+                    fill[j]=arr[i].id;
+                    noOfJobs++;
+                    maxProfit+=arr[i].profit;
+                    break;
+                }
+            }
+        }
+        return {noOfJobs,maxProfit};
+    } 
+};
