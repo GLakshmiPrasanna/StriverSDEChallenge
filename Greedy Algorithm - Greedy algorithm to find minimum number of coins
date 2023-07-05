@@ -1,0 +1,139 @@
+////////// GREEDY //////////
+#include <bits/stdc++.h> 
+int findMinimumCoins(int amount) 
+{
+    // Write your code here
+    int num=0;
+    vector<int> coins = {1,2,5,10,20,50,100,500,1000};
+    int n=9;
+    for(int i=n-1;i>=0;i--)
+    {
+        while(amount>=coins[i])
+        {
+            num++;
+            amount-=coins[i];
+        }
+    }
+    return num;
+}
+
+
+                                                        ///////////  GFG  ////////////
+///////////////////////////  DP   /////////////////////////
+class Solution{
+	public:
+	int minCoins(int coins[], int M, int V) 
+	{ 
+	    // Your code goes here
+        vector<int> next(V+1,-1),cur(V+1,-1);
+        for(int i=0;i<=V;i++)    
+        {
+            if(i%coins[M-1]==0)    next[i]=i/coins[M-1];
+            else next[i]=1e9;
+        }
+        int t=1e9;
+        for(int i=M-2;i>=0;i--)
+        {
+            for(int j=0;j<=V;j++)
+            {
+                if(j>=coins[i])
+                {
+                    t=1+cur[j-coins[i]];
+                }
+                int nt=next[j];
+                cur[j]=min(t,nt);
+            }
+            next=cur;
+        }
+	    return (next[V]>=1e9)?-1:next[V];
+	} 
+};
+
+
+// class Solution{
+
+// 	public:
+// 	int minCoins(int coins[], int M, int V) 
+// 	{ 
+// 	    // Your code goes here
+//         vector<vector<int>> dp(M,vector<int> (V+1,-1));
+//         for(int i=0;i<=V;i++)    
+//         {
+//             if(i%coins[M-1]==0)    dp[M-1][i]=i/coins[M-1];
+//             else dp[M-1][i]=1e9;
+//         }
+//         int t=1e9;
+//         for(int i=M-2;i>=0;i--)
+//         {
+//             for(int j=0;j<=V;j++)
+//             {
+//                 if(j>=coins[i])
+//                 {
+//                     t=1+dp[i][j-coins[i]];
+//                 }
+//                 int nt=dp[i+1][j];
+//                 dp[i][j]=min(t,nt);
+//             }
+//         }
+// 	    return (dp[0][V]>=1e9)?-1:dp[0][V];
+// 	} 
+// };
+
+
+
+// class Solution{
+
+// 	public:
+// 	int f(int ind,int coins[],int M,int V,vector<vector<int>> dp)
+// 	{
+// 	    if(ind==M-1)   
+// 	    {
+// 	        if(V%coins[ind]==0)  return V/coins[ind];
+// 	        else    return 1e9;
+// 	    }
+// 	    if(dp[ind][V]!=-1)  return dp[ind][V];
+// 	    int t=1e9;
+// 	    if(V>=coins[ind])
+// 	    {
+// 	        t=1+f(ind,coins,M,V-coins[ind],dp);
+// 	    }
+// 	    int nt=f(ind+1,coins,M,V,dp);
+// 	    return dp[ind][V]=min(t,nt);
+// 	}
+// 	int minCoins(int coins[], int M, int V) 
+// 	{ 
+// 	    // Your code goes here
+// 	    vector<vector<int>> dp(M,vector<int> (V+1,-1));
+// 	   int ans=f(0,coins,M,V,dp);
+// 	   if(ans>=1e9) return -1;
+// 	   return ans;
+// 	} 
+// };
+
+
+// class Solution{
+
+// 	public:
+// 	int f(int ind,int coins[],int M,int V)
+// 	{
+// 	    if(ind==M-1)   
+// 	    {
+// 	        if(V%coins[ind]==0)  return V/coins[ind];
+// 	        else    return 1e9;
+// 	    }
+// 	    int t=1e9;
+// 	    if(V>=coins[ind])
+// 	    {
+// 	        t=1+f(ind,coins,M,V-coins[ind]);
+// 	    }
+// 	    int nt=f(ind+1,coins,M,V);
+// 	    return min(t,nt);
+// 	}
+// 	int minCoins(int coins[], int M, int V) 
+// 	{ 
+// 	    // Your code goes here
+// 	   int ans=f(0,coins,M,V);
+// 	   if(ans>=1e9) return -1;
+// 	   return ans;
+// 	} 
+// };
