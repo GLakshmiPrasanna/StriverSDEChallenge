@@ -1,0 +1,32 @@
+class Solution {
+public:
+    void sumk(int i,vector<int> &candidates,int target,vector<int> &v,vector<vector<int>> &sol)
+    {
+        if(target<0)    return;
+        if(i==candidates.size())
+        {
+            if(target==0)
+            {
+                sol.push_back(v);
+                return ;
+            }
+            else    return ;
+        }
+        sumk(i+1,candidates,target,v,sol);
+        v.push_back(candidates[i]);
+        if(candidates[i]<=target){
+            sumk(i,candidates,target-candidates[i],v,sol);
+        }
+        else{
+            sumk(i+1,candidates,target-candidates[i],v,sol);
+        }
+        v.pop_back();
+        // return ;
+    }
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+        vector<vector<int>> sol;
+        vector<int> v;
+        sumk(0,candidates,target,v,sol);
+        return sol;
+    }
+};
