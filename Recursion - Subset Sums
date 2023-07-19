@@ -1,0 +1,21 @@
+class Solution
+{
+public:
+    void f(int ind,vector<int> &arr,int N,int sum,vector<int> &ans)
+    {
+        if(ind==N)  
+        {
+            ans.push_back(sum);
+            return;
+        }
+        f(ind+1,arr,N,sum,ans);
+        f(ind+1,arr,N,sum+arr[ind],ans);
+    }
+    vector<int> subsetSums(vector<int> arr, int N)
+    {
+        // Write Your Code here
+        vector<int> ans;
+        f(0,arr,N,0,ans);
+        return ans;
+    }
+};
