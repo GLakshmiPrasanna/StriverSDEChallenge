@@ -1,0 +1,26 @@
+class Solution {
+public:
+void sumk(int ind,vector<int> &arr,int k,vector<int> &v,vector<vector<int>> &sol)
+{
+    if(k==0)
+    {
+        sol.push_back(v);
+        return;
+    }
+    for(int i=ind;i<arr.size();i++)
+    {
+        if(i>ind && arr[i]==arr[i-1])   continue;
+        if(arr[i]>k)    break;
+        v.push_back(arr[i]);
+        sumk(i+1,arr,k-arr[i],v,sol);
+        v.pop_back();
+    }
+}
+    vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
+        vector<vector<int>> sol;
+        vector<int> v;
+        sort(candidates.begin(),candidates.end());
+        sumk(0,candidates,target,v,sol);
+        return sol;
+    }
+};
